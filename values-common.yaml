@@ -1,0 +1,41 @@
+consumer:
+  fullnameOverride: consumer
+  image:
+    pullPolicy: Always
+    tag: latest
+  environment:
+    SPRING_ACTIVEMQ_BROKERURL: tcp://queue:61616
+  ingress:
+    enabled: true
+    hosts:
+      - host: consumer.home.arpa
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+
+producer:
+  fullnameOverride: producer
+  image:
+    pullPolicy: Always
+    tag: latest
+  environment:
+    SPRING_ACTIVEMQ_BROKERURL: tcp://queue:61616
+queue:
+  fullnameOverride: queue
+  ingress:
+    enabled: true
+    hosts:
+      - host: queue.home.arpa
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+kube-prometheus:
+  fullnameOverride: ""
+  grafana:
+    ingress:
+      enabled: true
+      hostname: grafana.home.arpa
+  prometheus:
+    ingress:
+      enabled: true
+      hostname: prometheus.home.arpa

@@ -7,9 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: {{ .Values.service.jms.port }}
+      targetPort: jms
       protocol: TCP
-      name: http
+      name: jms
+    - port: {{ .Values.service.mgmt.port }}
+      targetPort: mgmt
+      protocol: TCP
+      name: mgmt
   selector:
     {{- include "chart.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,15 @@
+dependencies:
+- name: queue
+  repository: file://../queue/chart
+  version: 0.1.0
+- name: consumer
+  repository: file://../consumer/chart
+  version: 0.1.0
+- name: producer
+  repository: file://../producer/chart
+  version: 0.1.0
+- name: kube-prometheus
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 8.17.2
+digest: sha256:504de031a710060a66d758a2d383a220bcdc2c2db515d917030ceb70b22981b5
+generated: "2024-01-22T18:13:20.28821+01:00"

@@ -1,0 +1,6 @@
+consumer:
+  environment:
+    APP_QUEUE_RATE: PT1s
+producer:
+  environment:
+    APP_QUEUE_RATE: PT2s

@@ -4,3 +4,16 @@ description: autoscaling
 type: application
 version: 0.1.0
 appVersion: "0.1.0"
+dependencies:
+  - name: queue
+    version: "0.1.0"
+    repository: 'file://../queue/chart'
+  - name: consumer
+    version: "0.1.0"
+    repository: 'file://../consumer/chart'
+  - name: producer
+    version: "0.1.0"
+    repository: 'file://../producer/chart'
+  - name: kube-prometheus
+    version: "8.17.2"
+    repository: oci://registry-1.docker.io/bitnamicharts
