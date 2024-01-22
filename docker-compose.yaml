@@ -5,3 +5,8 @@ services:
     ports:
       - 61616:61616
       - 8161:8161
+#    volumes:
+#      - ./container/artemis.jar:/var/lib/artemis-instance/lib/artemis.jar
+#      - ./container/metrics.war:/var/lib/artemis-instance/web/metrics.war
+#      - ./container/broker.xml:/var/lib/artemis-instance/etc/broker.xml
+#      - ./container/bootstrap.xml:/var/lib/artemis-instance/etc/bootstrap.xml
