@@ -8,8 +8,11 @@ dependencies:
 - name: producer
   repository: file://../producer/chart
   version: 0.1.0
+- name: metrics
+  repository: file://../metrics/chart
+  version: 0.1.0
 - name: kube-prometheus
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 8.17.2
-digest: sha256:504de031a710060a66d758a2d383a220bcdc2c2db515d917030ceb70b22981b5
-generated: "2024-01-22T18:13:20.28821+01:00"
+digest: sha256:dd01922adc8e5612018773c3d2e434f24d6585bc15e9b2c3807f21f53b1bfb21
+generated: "2024-01-23T22:59:31.881931+01:00"

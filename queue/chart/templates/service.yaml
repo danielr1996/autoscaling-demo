@@ -15,5 +15,9 @@ spec:
       targetPort: mgmt
       protocol: TCP
       name: mgmt
+    - port: {{ .Values.service.jmx.port }}
+      targetPort: jmx
+      protocol: TCP
+      name: jmx
   selector:
     {{- include "chart.selectorLabels" . | nindent 4 }}

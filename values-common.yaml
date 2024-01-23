@@ -1,4 +1,5 @@
 consumer:
+  replicaCount: 0
   fullnameOverride: consumer
   image:
     pullPolicy: Always
@@ -12,7 +13,13 @@ consumer:
         paths:
           - path: /
             pathType: ImplementationSpecific
-
+metrics:
+  fullnameOverride: metrics
+  image:
+    pullPolicy: Always
+    tag: latest
+  environment:
+    SPRING_ACTIVEMQ_BROKERURL: tcp://queue:61616
 producer:
   fullnameOverride: producer
   image:
@@ -29,12 +36,10 @@ queue:
         paths:
           - path: /
             pathType: ImplementationSpecific
+grafana:
+  fullnameOverride: grafana
 kube-prometheus:
   fullnameOverride: ""
-  grafana:
-    ingress:
-      enabled: true
-      hostname: grafana.home.arpa
   prometheus:
     ingress:
       enabled: true

@@ -1,0 +1,20 @@
+{{- if .Values.keda.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "chart.fullname" . }}
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  maxReplicaCount: {{ .Values.keda.maxReplicaCount }}
+  scaleTargetRef:
+    name: {{ include "chart.fullname" . }}
+  pollingInterval: 5
+  cooldownPeriod: 30
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-operated.autoscaling-demo:9090
+        query: {{ .Values.keda.query }}
+        threshold: {{ .Values.keda.threshold | quote }}
+{{- end }}

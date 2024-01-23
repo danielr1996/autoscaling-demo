@@ -1,0 +1,62 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana
+  namespace: autoscaling-demo
+  labels:
+    dashboards: grafana
+spec:
+  deployment:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: grafana
+              resources:
+                limits:
+                  memory: 200Mi
+                  cpu: 200m
+                requests:
+                  memory: 200Mi
+                  cpu: 200m
+  config:
+    log:
+      mode: console
+    auth:
+      disable_login_form: "false"
+    security:
+      admin_user: admin
+      admin_password: admin
+  ingress:
+    spec:
+      rules:
+        - host: "grafana.home.arpa"
+          http:
+            paths:
+              - backend:
+                  service:
+                    name: 'grafana-service'
+                    port:
+                      number: 3000
+                path: '/'
+                pathType: 'Prefix'
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasource:
+    name: prometheus
+    type: prometheus
+    access: proxy
+    basicAuth: false
+    url: http://prometheus-operated.autoscaling-demo:9090
+    isDefault: true
+    editable: true
+    jsonData:
+      tlsSkipVerify: true
+      timeInterval: 5s

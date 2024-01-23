@@ -13,8 +13,9 @@ spec:
       {{- include "chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+{{/*        checksum: {{ print .Template.BasePath "configmap.yaml" . | sha256sum }}*/}}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -43,6 +44,9 @@ spec:
             - name: mgmt
               containerPort: {{ .Values.service.mgmt.port }}
               protocol: TCP
+            - name: jmx
+              containerPort: {{ .Values.service.jmx.port }}
+              protocol: TCP
 {{/*          livenessProbe:*/}}
 {{/*            httpGet:*/}}
 {{/*              path: /*/}}
@@ -53,12 +57,30 @@ spec:
 {{/*              port: http*/}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            - name: configmap
+              mountPath: /var/lib/artemis-instance/etc-override/broker.xml
+              subPath: broker.xml
+{{/*            - name: configmap*/}}
+{{/*              mountPath: /var/lib/artemis-instance/etc/management.xml*/}}
+{{/*              subPath: management.xml*/}}
+{{/*            - name: configmap-plugins*/}}
+{{/*              mountPath: /var/lib/artemis-instance/lib/metrics.jar*/}}
+{{/*              subPath: metrics.jar*/}}
+{{/*            - name: configmap-plugins*/}}
+{{/*              mountPath: /var/lib/artemis-instance/web/metrics.war*/}}
+{{/*              subPath: metrics.war*/}}
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+        - name: configmap
+          configMap:
+            name: {{ include "chart.fullname" . }}
+        - name: configmap-plugins
+          configMap:
+            name: {{ include "chart.fullname" . }}-plugins
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}

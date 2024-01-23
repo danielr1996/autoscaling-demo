@@ -1,4 +1,4 @@
-package codes.danielrichter.autoscalingdemo.consumer;
+package codes.danielrichter.autoscalingdemo.metrics;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.binder.MeterBinder;

@@ -1,3 +1,0 @@
-producer:
-  environment:
-    APP_QUEUE_BATCHSIZE: 1

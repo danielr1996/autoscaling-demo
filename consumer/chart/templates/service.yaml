@@ -13,21 +13,3 @@ spec:
       name: http
   selector:
     {{- include "chart.selectorLabels" . | nindent 4 }}
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: {{ include "chart.fullname" . }}
-  labels:
-    {{- include "chart.labels" . | nindent 4 }}
-spec:
-  endpoints:
-    - honorLabels: true
-      port: http
-      path: /actuator/prometheus
-  jobLabel: ''
-  namespaceSelector:
-    any: true
-  selector:
-    matchLabels:
-      {{- include "chart.selectorLabels" . | nindent 6 }}

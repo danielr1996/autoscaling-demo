@@ -1,4 +1,4 @@
-package codes.danielrichter.autoscalingdemo.consumer;
+package codes.danielrichter.autoscalingdemo.metrics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
